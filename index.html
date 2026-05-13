@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DentalFlow V3.1 - Demo Clínica Dental</title>
+  <title>DentalFlow V4 - Demo Clínica Dental · Emporium IA</title>
   <style>
     :root{
       --bg:#f3f8fc;--bg2:#eef6ff;--panel:#ffffff;--ink:#10273f;--muted:#65758b;
@@ -14,8 +14,14 @@
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(135deg,var(--bg),var(--bg2) 50%,#f3fff9);}
-    .top-banner{background:linear-gradient(90deg,#0d233b,#18456f);color:#fff;padding:10px 18px;text-align:center;font-size:.92rem}
-    .top-banner strong{font-weight:800}
+
+    /* TOP BANNER */
+    .top-banner{background:linear-gradient(90deg,#0d233b,#18456f);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+    .top-banner-left{font-size:.92rem;}
+    .top-banner-left strong{font-weight:800;}
+    .top-banner-right a{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:8px 16px;border-radius:999px;text-decoration:none;font-size:.82rem;font-weight:800;white-space:nowrap;}
+
+    /* HERO */
     .hero{padding:20px 20px 10px}
     .hero-shell{max-width:1400px;margin:0 auto;background:linear-gradient(135deg,#0d233b,#133a61 55%,#15587f);border-radius:30px;padding:30px;box-shadow:var(--shadow);color:#fff;overflow:hidden;position:relative}
     .hero-shell:before{content:"";position:absolute;right:-120px;top:-100px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,.07)}
@@ -25,16 +31,23 @@
     .hero h1{margin:14px 0 12px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02}
     .hero p{margin:0;color:rgba(255,255,255,.82);font-size:clamp(.98rem,1.5vw,1.05rem);max-width:650px;line-height:1.6}
     .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-    .btn{border:none;border-radius:15px;padding:14px 18px;font-weight:800;cursor:pointer;transition:.2s ease}
-    .btn:hover{transform:translateY(-1px)}
+    .btn{border:none;border-radius:15px;padding:14px 18px;font-weight:800;cursor:pointer;transition:.2s ease;font-size:1rem;}
+    .btn:hover{transform:translateY(-2px)}
+    .btn:active{transform:translateY(0)}
     .btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 12px 26px rgba(11,123,255,.24)}
     .btn-white{background:#fff;color:#12324f}
+    .btn-ghost{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);color:#fff;}
+    .btn-green{background:linear-gradient(135deg,#14b87a,#0fa366);color:#fff;box-shadow:0 8px 20px rgba(20,184,122,.25);}
+    .btn-sm{padding:9px 14px;font-size:.88rem;border-radius:11px;}
+    .btn-danger{background:#fff0f0;color:#c92a2a;border:1px solid #ffd0d0;}
     .hero-points{display:grid;gap:10px;margin-top:20px}
     .hero-points div{color:rgba(255,255,255,.9)}
     .proof{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
     .proof-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);padding:16px;border-radius:18px}
     .proof-card strong{display:block;font-size:1.7rem}
     .proof-card span{color:rgba(255,255,255,.76);font-size:.92rem}
+
+    /* LAYOUT */
     .wrap{max-width:1400px;margin:0 auto;padding:18px 20px 34px}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
     .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;min-width:0}
@@ -42,14 +55,21 @@
     .head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:16px}
     .head h2,.head h3{margin:0;font-size:1.08rem}
     .head p{margin:6px 0 0;color:var(--muted);font-size:.93rem;line-height:1.5}
+
+    /* PILLS */
     .pill{padding:8px 11px;border-radius:999px;font-size:.82rem;font-weight:800;white-space:nowrap}
     .pill.blue{background:#eaf4ff;color:#0c5aa5;border:1px solid #cfe3ff}
     .pill.green{background:#e8fff6;color:#0d8f63;border:1px solid #caf4e3}
     .pill.amber{background:#fff5db;color:#a16a00;border:1px solid #f8e3a1}
+
+    /* KPIs */
     .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    .kpi{border:1px solid var(--line);border-radius:18px;padding:16px;background:linear-gradient(180deg,#fbfdff,#f7fbff)}
-    .kpi strong{display:block;font-size:1.75rem;margin-bottom:4px}
+    .kpi{border:1px solid var(--line);border-radius:18px;padding:16px;background:linear-gradient(180deg,#fbfdff,#f7fbff);transition:.3s;}
+    .kpi strong{display:block;font-size:1.75rem;margin-bottom:4px;transition:.3s;}
     .kpi span{font-size:.92rem;color:var(--muted)}
+    .kpi.bump strong{color:var(--green);transform:scale(1.1);}
+
+    /* SUBGRID / SERVICES */
     .subgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}
     .services{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
     .service{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fff;cursor:pointer;transition:.2s ease}
@@ -57,57 +77,137 @@
     .service.active{border-color:#9ecfff;background:linear-gradient(180deg,#f6fbff,#ecf6ff);box-shadow:0 12px 22px rgba(11,123,255,.10)}
     .service h4{margin:0 0 8px}
     .meta{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.9rem;flex-wrap:wrap}
+
+    /* CALENDAR */
     .days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:14px}
     .day{border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px;text-align:center;cursor:pointer;transition:.2s ease;min-width:0}
     .day small{display:block;color:var(--muted);margin-bottom:4px}
     .day.active{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border-color:transparent;box-shadow:0 12px 24px rgba(11,123,255,.22)}
     .day.active small{color:rgba(255,255,255,.84)}
+
+    /* SLOTS */
     .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-    .slot{padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff;text-align:center;font-weight:800;cursor:pointer;min-width:0}
+    .slot{padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff;text-align:center;font-weight:800;cursor:pointer;min-width:0;transition:.15s;}
     .slot.selected{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border-color:transparent}
     .slot.disabled{background:#f2f5f8;color:#97a7b8;cursor:not-allowed}
+
+    /* FORM */
     label{display:block;margin:0 0 8px;color:#4f637a;font-size:.92rem}
-    input,select,textarea{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);font:inherit;color:var(--ink);background:#fff;outline:none}
+    input,select,textarea{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);font:inherit;color:var(--ink);background:#fff;outline:none;transition:.15s;}
     input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(11,123,255,.10)}
     .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
     .full{grid-column:1/-1}
-    .summary{background:linear-gradient(180deg,#0d233b,#173b61);color:#fff;border-radius:22px;padding:18px;display:grid;gap:12px;height:100%}
+
+    /* SUMMARY */
+    .summary{background:linear-gradient(180deg,#0d233b,#173b61);color:#fff;border-radius:22px;padding:18px;display:grid;gap:12px;}
     .summary-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;overflow-wrap:anywhere}
     .summary small{color:rgba(255,255,255,.74)}
     .progress{height:10px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden}
-    .progress > div{height:100%;width:28%;background:linear-gradient(90deg,#70dcff,#29d8a4)}
+    .progress > div{height:100%;width:28%;background:linear-gradient(90deg,#70dcff,#29d8a4);transition:width .4s ease;}
+
+    /* AUTOMATIONS / TIMELINE */
     .stack{display:grid;gap:12px}
     .auto-row,.event,.testimonial,.faq-item{border:1px solid var(--line);border-radius:18px;padding:15px;background:#fff;min-width:0}
     .auto-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .switch{position:relative;width:52px;height:30px;border-radius:999px;background:#d9e7f2;flex:0 0 auto}
-    .switch:before{content:"";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.12)}
+    .switch{position:relative;width:52px;height:30px;border-radius:999px;background:#d9e7f2;flex:0 0 auto;cursor:pointer;transition:.2s;}
+    .switch:before{content:"";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.12);transition:.2s;}
     .switch.on{background:#a8ecd7}
     .switch.on:before{left:26px;background:#14b87a}
-    .event{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;background:#fbfdff}
+    .event{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;background:#fbfdff;transition:.2s;}
+    .event:hover{background:#f5faff;}
+    .event-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;}
     .status{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:.82rem;font-weight:800}
-    .ok{background:#def7ec;color:#167d55}.pending{background:#fff4d6;color:#9c6a00}.urgent{background:#ffe3e3;color:#c92a2a}
-    .chat{display:grid;gap:12px}
-    .bubble{padding:12px 14px;border-radius:14px;font-size:.95rem;line-height:1.45;max-width:96%}
+    .ok{background:#def7ec;color:#167d55}.pending{background:#fff4d6;color:#9c6a00}.urgent{background:#ffe3e3;color:#c92a2a}.cancelled{background:#f3f4f6;color:#6b7280;text-decoration:line-through;}
+
+    /* CHAT */
+    .chat{display:grid;gap:12px;max-height:320px;overflow-y:auto;padding-right:4px;}
+    .chat::-webkit-scrollbar{width:4px;}
+    .chat::-webkit-scrollbar-thumb{background:#dbe7f2;border-radius:4px;}
+    .bubble{padding:12px 14px;border-radius:14px;font-size:.95rem;line-height:1.45;max-width:96%;animation:fadeUp .25s ease;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
     .bot{background:#fff;border:1px solid var(--line)}.user{background:#dff0ff;margin-left:auto}
+    .typing{display:flex;gap:4px;align-items:center;padding:12px 16px;background:#fff;border:1px solid var(--line);border-radius:14px;width:fit-content;}
+    .typing span{width:7px;height:7px;background:#b0c4d8;border-radius:50%;animation:bounce .9s infinite;}
+    .typing span:nth-child(2){animation-delay:.15s}
+    .typing span:nth-child(3){animation-delay:.30s}
+    @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+    .chat-input-row{display:flex;gap:8px;margin-top:10px;}
+    .chat-input-row input{flex:1;padding:10px 14px;border-radius:12px;border:1px solid var(--line);font:inherit;outline:none;}
+    .chat-input-row input:focus{border-color:var(--blue);}
+    .chat-input-row button{padding:10px 16px;border-radius:12px;border:none;background:var(--blue);color:#fff;font-weight:800;cursor:pointer;}
     .chips{display:flex;flex-wrap:wrap;gap:10px}
-    .chip{padding:10px 12px;border-radius:999px;border:1px solid #cfe3ff;background:#fff;color:#0c5aa5;font-weight:800;cursor:pointer}
+    .chip{padding:10px 12px;border-radius:999px;border:1px solid #cfe3ff;background:#fff;color:#0c5aa5;font-weight:800;cursor:pointer;transition:.15s;font-size:.88rem;}
     .chip:hover,.chip.active{background:#eaf4ff}
+
+    /* TESTIMONIALS / FAQ */
     .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .testimonial h4,.faq-item h4{margin:0 0 8px}
     .testimonial p,.faq-item p{margin:0;color:var(--muted);line-height:1.55;font-size:.94rem}
     .testimonial strong{display:block;margin-top:12px}
-    .toast{position:fixed;right:20px;bottom:20px;background:#0d233b;color:#fff;padding:14px 16px;border-radius:14px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s ease;max-width:420px;z-index:99}
+
+    /* TOAST */
+    .toast{position:fixed;right:20px;bottom:20px;background:#0d233b;color:#fff;padding:14px 18px;border-radius:14px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s ease;max-width:420px;z-index:999;font-size:.95rem;}
     .toast.show{opacity:1;transform:translateY(0)}
-    @media (max-width:1150px){
+
+    /* ── MODAL BASE ── */
+    .modal-overlay{position:fixed;inset:0;background:rgba(10,25,50,.55);backdrop-filter:blur(6px);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.25s ease;}
+    .modal-overlay.open{opacity:1;pointer-events:all;}
+    .modal{background:#fff;border-radius:26px;box-shadow:0 32px 80px rgba(10,25,50,.22);max-width:520px;width:100%;padding:30px;position:relative;transform:translateY(16px) scale(.98);transition:.25s ease;max-height:90vh;overflow-y:auto;}
+    .modal-overlay.open .modal{transform:translateY(0) scale(1);}
+    .modal-close{position:absolute;top:16px;right:16px;background:#f0f4f8;border:none;border-radius:999px;width:32px;height:32px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;}
+    .modal-close:hover{background:#e0e8f0;}
+
+    /* CONFIRMATION STEPS MODAL */
+    .steps{display:grid;gap:12px;margin:16px 0;}
+    .step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:#f8fbff;opacity:.4;transition:.5s ease;}
+    .step.done{opacity:1;border-color:#a8ecd7;background:#f0fff8;}
+    .step.active{opacity:1;border-color:#9ecfff;background:#f0f8ff;}
+    .step-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px;}
+    .step-text{font-size:.93rem;line-height:1.45;}
+    .step-text strong{display:block;margin-bottom:2px;}
+    .step-check{margin-left:auto;flex-shrink:0;font-size:1.1rem;opacity:0;transition:.3s;}
+    .step.done .step-check{opacity:1;}
+
+    /* WHATSAPP MOCK */
+    .wa-phone{background:#e5ddd5;border-radius:24px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.18);max-width:340px;margin:0 auto;}
+    .wa-bar{background:#075e54;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;}
+    .wa-avatar{width:36px;height:36px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;}
+    .wa-bar-info{flex:1;}
+    .wa-bar-info strong{display:block;font-size:.92rem;}
+    .wa-bar-info small{font-size:.78rem;opacity:.8;}
+    .wa-msgs{padding:14px 12px;display:grid;gap:8px;min-height:160px;}
+    .wa-msg{background:#fff;border-radius:0 12px 12px 12px;padding:10px 12px;font-size:.9rem;line-height:1.45;max-width:90%;box-shadow:0 1px 2px rgba(0,0,0,.1);}
+    .wa-msg.sent{background:#dcf8c6;border-radius:12px 0 12px 12px;margin-left:auto;}
+    .wa-msg small{display:block;text-align:right;font-size:.75rem;color:#888;margin-top:4px;}
+    .wa-input{background:#f0f0f0;padding:10px 12px;display:flex;align-items:center;gap:8px;}
+    .wa-input-field{flex:1;background:#fff;border-radius:999px;padding:8px 14px;font-size:.88rem;color:#333;}
+    .wa-send{background:#25d366;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;}
+
+    /* RESCHEDULE MODAL */
+    .reschedule-days{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
+    .r-day{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:.15s;font-size:.88rem;}
+    .r-day small{display:block;color:var(--muted);font-size:.78rem;}
+    .r-day.active{background:var(--blue);color:#fff;border-color:transparent;}
+    .r-day.active small{color:rgba(255,255,255,.8);}
+    .reschedule-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+    .r-slot{border:1px solid var(--line);border-radius:11px;padding:9px;text-align:center;font-weight:700;cursor:pointer;font-size:.88rem;transition:.15s;}
+    .r-slot.active{background:var(--blue);color:#fff;border-color:transparent;}
+
+    /* FOOTER */
+    footer{text-align:center;padding:24px 20px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);}
+    footer a{color:var(--blue);text-decoration:none;font-weight:700;}
+
+    /* RESPONSIVE */
+    @media(max-width:1150px){
       .hero-grid,.subgrid{grid-template-columns:1fr}
       .span-8,.span-4,.span-7,.span-5,.span-12{grid-column:span 12}
     }
-    @media (max-width:900px){
+    @media(max-width:900px){
       .kpis{grid-template-columns:repeat(2,1fr)}
       .testimonials{grid-template-columns:1fr}
       .head{flex-direction:column}
     }
-    @media (max-width:760px){
+    @media(max-width:760px){
       .services,.days,.slots,.form-grid{grid-template-columns:1fr 1fr}
       .proof{grid-template-columns:1fr}
       .hero-shell{padding:22px}
@@ -115,8 +215,9 @@
       .hero-cta{flex-direction:column;align-items:stretch}
       .event{flex-direction:column}
       .auto-row{align-items:flex-start}
+      .top-banner{flex-direction:column;text-align:center;}
     }
-    @media (max-width:560px){
+    @media(max-width:560px){
       .hero{padding:14px 14px 8px}.wrap{padding:14px 14px 28px}
       .top-banner{font-size:.84rem;padding:10px 14px}
       .hero h1{font-size:clamp(1.8rem,9vw,2.4rem)}
@@ -126,9 +227,14 @@
   </style>
 </head>
 <body>
-  <div class="top-banner">Demo comercial de <strong>Emporium IA</strong> · Sistema de captación y reserva para clínicas dentales</div>
 
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <div class="top-banner-left">Demo comercial de <strong>Emporium IA</strong> · Sistema de captación y reserva para clínicas dentales &mdash; <em>Esta es una demo interactiva, no un producto final.</em></div>
+    <div class="top-banner-right"><a href="mailto:contacto@emporium-ia.es">Quiero esto para mi clínica →</a></div>
+  </div>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-shell">
       <div class="hero-grid">
@@ -137,232 +243,651 @@
           <h1>Convierte visitas web en citas confirmadas, sin saturar recepción</h1>
           <p>Esta demo muestra cómo una clínica dental puede captar solicitudes online, ofrecer horarios disponibles, confirmar automáticamente por WhatsApp o email y mantener la agenda organizada con menos trabajo manual.</p>
           <div class="hero-cta">
-            <button class="btn btn-primary" id="heroDemo">Probar la demo</button>
-            <button class="btn btn-white" id="heroFunciones">Ver funcionalidades</button>
+            <button class="btn btn-primary" id="heroDemo">Probar la demo ahora</button>
+            <button class="btn btn-ghost" id="heroChatBtn">Hablar con Vera (IA)</button>
           </div>
           <div class="hero-points">
-            <div>• Reserva online más clara para nuevos pacientes.</div>
-            <div>• Menos llamadas repetitivas y menos citas olvidadas.</div>
-            <div>• Recordatorios automáticos y alta directa en CRM.</div>
+            <div>✓ Reserva online más clara para nuevos pacientes.</div>
+            <div>✓ Menos llamadas repetitivas y menos citas olvidadas.</div>
+            <div>✓ Recordatorios automáticos y alta directa en CRM.</div>
           </div>
         </div>
         <div class="proof">
           <div class="proof-card"><strong>24/7</strong><span>Captación online sin depender del horario de recepción</span></div>
           <div class="proof-card"><strong>1 click</strong><span>Para elegir tratamiento, día, hora y canal de confirmación</span></div>
-          <div class="proof-card"><strong>Automático</strong><span>Confirmación, recordatorio y seguimiento post-visita</span></div>
+          <div class="proof-card"><strong>Auto</strong><span>Confirmación, recordatorio 24h y seguimiento post-visita</span></div>
         </div>
       </div>
     </div>
   </section>
 
-
   <main class="wrap">
     <section class="grid">
 
-
+      <!-- KPIs -->
       <div class="card span-8">
         <div class="head">
-          <div><h2>Lo que vería la clínica</h2><p>Panel con agenda, automatizaciones y solicitudes entrantes.</p></div>
-          <div class="pill green">Listo para demo</div>
+          <div><h2>Panel de la clínica</h2><p>Reservas, ocupación y automatizaciones en tiempo real.</p></div>
+          <div class="pill green">En vivo</div>
         </div>
         <div class="kpis">
-          <div class="kpi"><strong>41</strong><span>Reservas semanales</span></div>
-          <div class="kpi"><strong>89%</strong><span>Ocupación agenda</span></div>
-          <div class="kpi"><strong>14</strong><span>Recordatorios enviados</span></div>
-          <div class="kpi"><strong>6</strong><span>Nuevos pacientes hoy</span></div>
+          <div class="kpi"><strong id="kpiReservas">41</strong><span>Reservas esta semana</span></div>
+          <div class="kpi"><strong id="kpiOcupacion">89%</strong><span>Ocupación agenda</span></div>
+          <div class="kpi"><strong id="kpiRecordatorios">14</strong><span>Recordatorios enviados</span></div>
+          <div class="kpi"><strong id="kpiNuevos">6</strong><span>Nuevos pacientes hoy</span></div>
         </div>
       </div>
 
-
-      <div class="card span-4">
+      <!-- CHAT VERA -->
+      <div class="card span-4" id="chatCard">
         <div class="head">
-          <div><h3>Asistente de recepción IA</h3><p>Ideal para web, WhatsApp o landing de captación.</p></div>
+          <div><h3>Asistente Vera IA</h3><p>Atiende reservas en web, WhatsApp o landing.</p></div>
           <div class="pill blue">24/7</div>
         </div>
         <div class="chat" id="chatBox">
-          <div class="bubble bot">Hola, soy Vera. Puedo ayudarte a reservar una limpieza, revisión, blanqueamiento o urgencia dental.</div>
+          <div class="bubble bot">👋 Hola, soy <strong>Vera</strong>, la asistente virtual de la clínica. ¿En qué puedo ayudarte hoy?</div>
         </div>
-        <div class="chips" style="margin-top:12px;">
-          <button class="chip" data-type="Limpieza dental">Limpieza</button>
-          <button class="chip" data-type="Primera revisión">Revisión</button>
-          <button class="chip" data-type="Blanqueamiento">Blanqueamiento</button>
-          <button class="chip" data-type="Urgencia dental">Urgencia</button>
+        <div class="chips" style="margin-top:10px;" id="chatChips">
+          <button class="chip" data-type="Limpieza dental">🦷 Limpieza</button>
+          <button class="chip" data-type="Primera revisión">🔍 Revisión</button>
+          <button class="chip" data-type="Blanqueamiento">✨ Blanqueamiento</button>
+          <button class="chip" data-type="Urgencia dental">🚨 Urgencia</button>
+          <button class="chip" data-q="precio">💬 Precio</button>
+          <button class="chip" data-q="horario">🕐 Horario</button>
+        </div>
+        <div class="chat-input-row" id="chatInputRow" style="display:none;">
+          <input id="chatUserInput" placeholder="Escribe tu pregunta..." />
+          <button id="chatSendBtn">→</button>
         </div>
       </div>
 
-
+      <!-- DEMO INTERACTIVA -->
       <div class="card span-7" id="demoSection">
         <div class="head">
-          <div><h3>Demo interactiva de reserva</h3><p>Visual, clara y pensada para enseñar el funcionamiento.</p></div>
-          <div class="pill amber">Versión actualizada</div>
+          <div><h3>Demo interactiva de reserva</h3><p>Selecciona servicio, día, hora y completa los datos.</p></div>
+          <div class="pill amber">Interactivo</div>
         </div>
         <div class="subgrid">
           <div>
             <div class="services" id="services">
-              <div class="service active" data-service="Limpieza dental" data-min="45 min" data-price="Desde 45€"><h4>Limpieza dental</h4><div class="meta"><span>45 min</span><span>Desde 45€</span></div></div>
-              <div class="service" data-service="Primera revisión" data-min="30 min" data-price="Desde 30€"><h4>Primera revisión</h4><div class="meta"><span>30 min</span><span>Desde 30€</span></div></div>
-              <div class="service" data-service="Blanqueamiento" data-min="60 min" data-price="Desde 180€"><h4>Blanqueamiento</h4><div class="meta"><span>60 min</span><span>Desde 180€</span></div></div>
-              <div class="service" data-service="Urgencia dental" data-min="20 min" data-price="Prioridad alta"><h4>Urgencia dental</h4><div class="meta"><span>20 min</span><span>Prioridad alta</span></div></div>
+              <div class="service active" data-service="Limpieza dental" data-min="45 min" data-price="Desde 45€"><h4>🦷 Limpieza dental</h4><div class="meta"><span>45 min</span><span>Desde 45€</span></div></div>
+              <div class="service" data-service="Primera revisión" data-min="30 min" data-price="Desde 30€"><h4>🔍 Primera revisión</h4><div class="meta"><span>30 min</span><span>Desde 30€</span></div></div>
+              <div class="service" data-service="Blanqueamiento" data-min="60 min" data-price="Desde 180€"><h4>✨ Blanqueamiento</h4><div class="meta"><span>60 min</span><span>Desde 180€</span></div></div>
+              <div class="service" data-service="Urgencia dental" data-min="20 min" data-price="Prioridad alta"><h4>🚨 Urgencia dental</h4><div class="meta"><span>20 min</span><span>Prioridad alta</span></div></div>
             </div>
             <div class="days" id="days"></div>
             <div class="slots" id="slots"></div>
             <div class="form-grid">
-              <div><label for="doctor">Profesional</label><select id="doctor"><option>Primera disponible</option><option>Dra. Marta López</option><option>Dr. Javier Ruiz</option></select></div>
-              <div><label for="channel">Canal de confirmación</label><select id="channel"><option>WhatsApp</option><option>Email</option><option>SMS</option></select></div>
-              <div><label for="name">Nombre completo</label><input id="name" placeholder="Ej. Laura Martín" /></div>
-              <div><label for="phone">Teléfono</label><input id="phone" placeholder="Ej. 612 345 678" /></div>
-              <div><label for="email">Email</label><input id="email" type="email" placeholder="paciente@email.com" /></div>
-              <div><label for="insurance">Aseguradora</label><select id="insurance"><option>Privado</option><option>Sanitas</option><option>Adeslas</option><option>DKV</option></select></div>
-              <div class="full"><label for="notes">Motivo o notas</label><textarea id="notes" rows="4" placeholder="Ej. sensibilidad, revisión anual, estética dental..."></textarea></div>
+              <div><label>Profesional</label><select id="doctor"><option>Primera disponible</option><option>Dra. Marta López</option><option>Dr. Javier Ruiz</option></select></div>
+              <div><label>Canal de confirmación</label><select id="channel"><option>WhatsApp</option><option>Email</option><option>SMS</option></select></div>
+              <div><label>Nombre completo</label><input id="name" placeholder="Ej. Laura Martín" /></div>
+              <div><label>Teléfono</label><input id="phone" placeholder="Ej. 612 345 678" /></div>
+              <div><label>Email</label><input id="email" type="email" placeholder="paciente@email.com" /></div>
+              <div><label>Aseguradora</label><select id="insurance"><option>Privado</option><option>Sanitas</option><option>Adeslas</option><option>DKV</option></select></div>
+              <div class="full"><label>Motivo o notas</label><textarea id="notes" rows="3" placeholder="Ej. sensibilidad, revisión anual..."></textarea></div>
             </div>
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
-              <button class="btn btn-primary" id="bookNow">Simular nueva reserva</button>
+              <button class="btn btn-primary" id="bookNow">Confirmar reserva</button>
               <button class="btn btn-white" id="loadDemo">Cargar caso demo</button>
             </div>
           </div>
           <div class="summary">
             <div>
-              <small>Estado del flujo</small>
-              <h3 style="margin:6px 0 10px;font-size:1.25rem;">Reserva inteligente</h3>
+              <small>Progreso del formulario</small>
+              <h3 style="margin:6px 0 10px;font-size:1.15rem;">Reserva inteligente</h3>
               <div class="progress"><div id="progressBar"></div></div>
             </div>
             <div class="summary-box"><small>Servicio</small><div id="sumService">Limpieza dental</div></div>
             <div class="summary-box"><small>Duración / referencia</small><div id="sumMeta">45 min · Desde 45€</div></div>
-            <div class="summary-box"><small>Fecha y hora</small><div id="sumDate">Selecciona un día y una hora</div></div>
+            <div class="summary-box"><small>Fecha y hora</small><div id="sumDate">Selecciona día y hora</div></div>
             <div class="summary-box"><small>Paciente</small><div id="sumPatient">Pendiente de completar</div></div>
-            <div class="summary-box"><small>Automatizaciones</small><div id="sumAuto">Confirmación, recordatorio y alta en CRM.</div></div>
+            <div class="summary-box"><small>Automatizaciones activadas</small><div id="sumAuto">Confirmación, recordatorio y alta en CRM.</div></div>
           </div>
         </div>
       </div>
 
-
+      <!-- AGENDA + AUTOMATIZACIONES -->
       <div class="card span-5">
         <div class="head">
-          <div><h3>Agenda y automatizaciones</h3><p>Ahorro de tiempo y mejor organización para la clínica.</p></div>
-          <div class="pill green">Operativo</div>
+          <div><h3>Agenda del día</h3><p>Citas en tiempo real con opciones de gestión.</p></div>
+          <div class="pill green">Hoy</div>
         </div>
         <div class="stack" style="margin-bottom:14px;">
-          <div class="auto-row"><span>Confirmación automática</span><div class="switch on"></div></div>
-          <div class="auto-row"><span>Recordatorio 24h antes</span><div class="switch on"></div></div>
-          <div class="auto-row"><span>Alta del lead en CRM</span><div class="switch on"></div></div>
-          <div class="auto-row"><span>Encuesta post visita</span><div class="switch"></div></div>
+          <div class="auto-row"><span>✅ Confirmación automática</span><div class="switch on" id="sw1"></div></div>
+          <div class="auto-row"><span>🔔 Recordatorio 24h antes</span><div class="switch on" id="sw2"></div></div>
+          <div class="auto-row"><span>📋 Alta del lead en CRM</span><div class="switch on" id="sw3"></div></div>
+          <div class="auto-row"><span>⭐ Encuesta post visita</span><div class="switch" id="sw4"></div></div>
         </div>
         <div class="stack" id="timeline">
-          <div class="event"><div><strong>09:00 · Ana García</strong><br>Limpieza dental · Dra. Marta López<br><span class="status ok">Confirmada</span></div><div style="color:var(--muted);font-size:.9rem;">WhatsApp</div></div>
-          <div class="event"><div><strong>10:30 · Marcos Pérez</strong><br>Primera revisión · Primera disponible<br><span class="status pending">Pendiente</span></div><div style="color:var(--muted);font-size:.9rem;">Email</div></div>
-          <div class="event"><div><strong>16:00 · Sara López</strong><br>Urgencia dental · Dr. Javier Ruiz<br><span class="status urgent">Prioridad</span></div><div style="color:var(--muted);font-size:.9rem;">Recepción</div></div>
+          <div class="event" id="ev1">
+            <div>
+              <strong>09:00 · Ana García</strong><br>
+              Limpieza dental · Dra. Marta López<br>
+              <span class="status ok">Confirmada</span>
+            </div>
+            <div class="event-actions">
+              <button class="btn btn-sm btn-white" onclick="openReschedule('ev1','Ana García')">Reagendar</button>
+              <button class="btn btn-sm btn-danger" onclick="cancelEvent('ev1')">Cancelar</button>
+            </div>
+          </div>
+          <div class="event" id="ev2">
+            <div>
+              <strong>10:30 · Marcos Pérez</strong><br>
+              Primera revisión · Primera disponible<br>
+              <span class="status pending">Pendiente</span>
+            </div>
+            <div class="event-actions">
+              <button class="btn btn-sm btn-white" onclick="openReschedule('ev2','Marcos Pérez')">Reagendar</button>
+              <button class="btn btn-sm btn-danger" onclick="cancelEvent('ev2')">Cancelar</button>
+            </div>
+          </div>
+          <div class="event" id="ev3">
+            <div>
+              <strong>16:00 · Sara López</strong><br>
+              Urgencia dental · Dr. Javier Ruiz<br>
+              <span class="status urgent">Prioridad</span>
+            </div>
+            <div class="event-actions">
+              <button class="btn btn-sm btn-white" onclick="openReschedule('ev3','Sara López')">Reagendar</button>
+              <button class="btn btn-sm btn-danger" onclick="cancelEvent('ev3')">Cancelar</button>
+            </div>
+          </div>
         </div>
       </div>
 
-
+      <!-- CÓMO FUNCIONA -->
       <div class="card span-8">
         <div class="head">
-          <div><h3>Cómo funciona</h3><p>El sistema cubre todo el ciclo de la cita, desde la solicitud hasta el seguimiento.</p></div>
+          <div><h3>Cómo funciona</h3><p>El sistema cubre todo el ciclo de la cita, de principio a fin.</p></div>
           <div class="pill blue">Visión general</div>
         </div>
         <div class="services">
-          <div class="service" style="cursor:default;"><h4>Reserva online clara</h4><div class="meta"><span>Paciente</span><span>Web o landing</span></div></div>
-          <div class="service" style="cursor:default;"><h4>Confirmación automática</h4><div class="meta"><span>WhatsApp / Email</span><span>Instantáneo</span></div></div>
-          <div class="service" style="cursor:default;"><h4>Organización interna</h4><div class="meta"><span>Agenda</span><span>Recepción</span></div></div>
-          <div class="service" style="cursor:default;"><h4>Seguimiento posterior</h4><div class="meta"><span>CRM</span><span>Recordatorios</span></div></div>
+          <div class="service" style="cursor:default;"><h4>📱 Reserva online</h4><div class="meta"><span>Paciente</span><span>Web o landing</span></div></div>
+          <div class="service" style="cursor:default;"><h4>✅ Confirmación automática</h4><div class="meta"><span>WhatsApp / Email</span><span>Instantáneo</span></div></div>
+          <div class="service" style="cursor:default;"><h4>📅 Organización interna</h4><div class="meta"><span>Agenda</span><span>Recepción</span></div></div>
+          <div class="service" style="cursor:default;"><h4>🔁 Seguimiento posterior</h4><div class="meta"><span>CRM + encuesta</span><span>Fidelización</span></div></div>
         </div>
       </div>
 
-
+      <!-- BENEFICIOS -->
       <div class="card span-4">
         <div class="head">
-          <div><h3>Beneficios clave</h3><p>Lo que nota la clínica desde el primer momento.</p></div>
+          <div><h3>Beneficios clave</h3><p>Impacto desde el primer día.</p></div>
         </div>
         <div class="testimonials">
-          <div class="testimonial"><h4>Recepción más ordenada</h4><p>Centraliza solicitudes y recordatorios sin depender de mensajes manuales.</p><strong>Beneficio operativo</strong></div>
-          <div class="testimonial"><h4>Mejor experiencia del paciente</h4><p>Reservar resulta más simple, moderno y rápido, especialmente para primeras visitas.</p><strong>Beneficio comercial</strong></div>
+          <div class="testimonial"><h4>⏱️ Recepción libera 2h/día</h4><p>Sin llamadas para confirmar ni recordar. El equipo se centra en los pacientes presentes.</p><strong>Beneficio operativo</strong></div>
+          <div class="testimonial"><h4>💰 Cero citas perdidas</h4><p>Cada solicitud fuera de horario queda registrada y confirmada automáticamente.</p><strong>Beneficio comercial</strong></div>
         </div>
       </div>
 
-
+      <!-- FAQ -->
       <div class="card span-12">
         <div class="head">
           <div><h3>Preguntas frecuentes</h3><p>Respuestas rápidas a las dudas más habituales.</p></div>
         </div>
         <div class="services">
-          <div class="faq-item"><h4>¿Se puede adaptar a nuestra imagen?</h4><p>Sí. Colores, logo, tratamientos, profesionales y canales de contacto se pueden personalizar para cada clínica.</p></div>
-          <div class="faq-item"><h4>¿Puede conectarse con WhatsApp o CRM?</h4><p>Sí. El flujo puede enviar confirmaciones, registrar leads y activar recordatorios automáticos.</p></div>
-          <div class="faq-item"><h4>¿Se puede usar primero como piloto?</h4><p>Sí. Tiene sentido empezar con una versión simple orientada a captar y ordenar reservas desde la web.</p></div>
-          <div class="faq-item"><h4>¿Funciona en móvil?</h4><p>Sí. La estructura es adaptativa para tablet y móvil sin necesidad de una app adicional.</p></div>
+          <div class="faq-item"><h4>¿Se puede adaptar a nuestra imagen?</h4><p>Sí. Colores, logo, tratamientos, profesionales y canales se personalizan para cada clínica.</p></div>
+          <div class="faq-item"><h4>¿Puede conectarse con WhatsApp o CRM?</h4><p>Sí. El flujo envía confirmaciones, registra leads y activa recordatorios automáticos.</p></div>
+          <div class="faq-item"><h4>¿Se puede usar primero como piloto?</h4><p>Sí. Empezamos con una versión simple orientada a captar y ordenar reservas desde la web.</p></div>
+          <div class="faq-item"><h4>¿Funciona en móvil?</h4><p>Sí. La estructura es completamente adaptativa para tablet y móvil.</p></div>
         </div>
       </div>
-
 
     </section>
   </main>
 
+  <!-- FOOTER -->
+  <footer>
+    Demo desarrollada por <a href="mailto:contacto@emporium-ia.es">Emporium IA</a> · ¿Quieres esto para tu clínica? <a href="mailto:contacto@emporium-ia.es">contacto@emporium-ia.es</a> · <a href="tel:+34604380891">+34 604 380 891</a>
+  </footer>
 
+  <!-- TOAST -->
   <div class="toast" id="toast"></div>
+
+  <!-- ══════════════════════════════════
+       MODAL: CONFIRMACIÓN POR PASOS
+       ══════════════════════════════════ -->
+  <div class="modal-overlay" id="modalConfirm">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('modalConfirm')">✕</button>
+      <h2 style="margin:0 0 6px;font-size:1.3rem;">Procesando reserva…</h2>
+      <p style="color:var(--muted);margin:0 0 4px;font-size:.94rem;">Así funciona el flujo automatizado en tiempo real.</p>
+      <div class="steps" id="confirmSteps">
+        <div class="step" id="step1"><span class="step-icon">📋</span><div class="step-text"><strong>Validando datos del paciente</strong>Nombre, teléfono y servicio seleccionado.</div><span class="step-check">✅</span></div>
+        <div class="step" id="step2"><span class="step-icon">📅</span><div class="step-text"><strong>Bloqueando hueco en la agenda</strong>Reservando <span id="stepSlotText">la hora seleccionada</span>.</div><span class="step-check">✅</span></div>
+        <div class="step" id="step3"><span class="step-icon">💬</span><div class="step-text"><strong>Enviando confirmación al paciente</strong>Mensaje automático por <span id="stepChannelText">WhatsApp</span>.</div><span class="step-check">✅</span></div>
+        <div class="step" id="step4"><span class="step-icon">🔔</span><div class="step-text"><strong>Programando recordatorio 24h antes</strong>El paciente recibirá un aviso automático.</div><span class="step-check">✅</span></div>
+        <div class="step" id="step5"><span class="step-icon">📊</span><div class="step-text"><strong>Alta del lead en CRM</strong>Ficha del paciente creada automáticamente.</div><span class="step-check">✅</span></div>
+      </div>
+      <div id="confirmResult" style="display:none;text-align:center;padding:16px 0 4px;">
+        <div style="font-size:2.5rem;margin-bottom:8px;">🎉</div>
+        <h3 style="margin:0 0 6px;color:#0d8f63;">¡Reserva confirmada!</h3>
+        <p style="color:var(--muted);margin:0 0 16px;font-size:.94rem;">El paciente ha recibido la confirmación y la clínica tiene la cita en agenda.</p>
+        <button class="btn btn-green" onclick="openWAModal()">Ver confirmación por WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       MODAL: WHATSAPP SIMULADO
+       ══════════════════════════════════ -->
+  <div class="modal-overlay" id="modalWA">
+    <div class="modal" style="max-width:380px;padding:20px;">
+      <button class="modal-close" onclick="closeModal('modalWA')">✕</button>
+      <p style="margin:0 0 12px;font-size:.88rem;color:var(--muted);text-align:center;">Así vería el paciente la confirmación en WhatsApp</p>
+      <div class="wa-phone">
+        <div class="wa-bar">
+          <div class="wa-avatar">🦷</div>
+          <div class="wa-bar-info">
+            <strong>Clínica Dental Demo</strong>
+            <small>En línea</small>
+          </div>
+        </div>
+        <div class="wa-msgs" id="waMsgs"></div>
+        <div class="wa-input">
+          <div class="wa-input-field">Escribe un mensaje</div>
+          <div class="wa-send">➤</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:14px;">
+        <button class="btn btn-green btn-sm" onclick="closeModal('modalWA');closeModal('modalConfirm');showToast('✅ Demo completada. ¡Así funciona el sistema en tiempo real!');">Entendido, cerrar demo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       MODAL: REAGENDAR CITA
+       ══════════════════════════════════ -->
+  <div class="modal-overlay" id="modalReschedule">
+    <div class="modal" style="max-width:420px;">
+      <button class="modal-close" onclick="closeModal('modalReschedule')">✕</button>
+      <h3 style="margin:0 0 4px;">Reagendar cita</h3>
+      <p style="color:var(--muted);margin:0 0 14px;font-size:.92rem;">Paciente: <strong id="reschedulePatient"></strong></p>
+      <label style="margin-bottom:8px;display:block;">Nuevo día</label>
+      <div class="reschedule-days" id="rDays"></div>
+      <label style="margin-bottom:8px;display:block;">Nueva hora</label>
+      <div class="reschedule-slots" id="rSlots"></div>
+      <button class="btn btn-primary" style="width:100%;" id="confirmReschedule">Confirmar reagendado</button>
+    </div>
+  </div>
 
 
   <script>
-    const $ = id => document.getElementById(id);
-    const toast = $('toast');
-    const services = [...document.querySelectorAll('#services .service')];
-    const chips = [...document.querySelectorAll('.chip')];
-    const doctor = $('doctor'), channel = $('channel'), nameInput = $('name');
-    const phone = $('phone'), email = $('email'), insurance = $('insurance'), notes = $('notes');
-    const daysWrap = $('days'), slotsWrap = $('slots'), timeline = $('timeline');
-    let selectedService = {name:'Limpieza dental',min:'45 min',price:'Desde 45€'};
-    let selectedDate = '', selectedSlot = '';
-    const slotMap = {
-      0:['09:00','10:00','11:30','16:00','17:00','18:30'],
-      1:['09:30','10:30','12:00','16:30','17:30','19:00'],
-      2:['09:00','10:00','11:00','12:30','16:00','18:00'],
-      3:['09:15','10:15','11:45','16:15','17:15','18:15'],
-      4:['09:00','10:30','11:30','16:00','17:00','18:00'],
-      5:['10:00','11:00','12:00','16:30','17:30','18:30'],
-      6:['09:00','10:00','11:00','15:30','16:30','17:30']
-    };
-    const showToast = msg => { toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2800); };
-    const esDate = d => d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
-    const renderDays = () => {
-      daysWrap.innerHTML='';
-      for(let i=0;i<7;i++){
-        const d=new Date(); d.setDate(d.getDate()+i+1);
-        const btn=document.createElement('button');
-        btn.className='day'+(i===0?' active':'');
-        btn.innerHTML=`<small>${d.toLocaleDateString('es-ES',{weekday:'short'})}</small><strong>${d.getDate()}</strong>`;
-        btn.addEventListener('click',()=>{ document.querySelectorAll('.day').forEach(x=>x.classList.remove('active')); btn.classList.add('active'); selectedDate=esDate(d); renderSlots(i); updateSummary(); });
-        daysWrap.appendChild(btn);
-        if(i===0) selectedDate=esDate(d);
+  // ─── UTILS ───────────────────────────────────────────────
+  const $ = id => document.getElementById(id);
+  const toast = $('toast');
+  const showToast = msg => { toast.innerHTML=msg; toast.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>toast.classList.remove('show'),3200); };
+  const openModal = id => $( id).classList.add('open');
+  const closeModal = id => $(id).classList.remove('open');
+  const esDate = d => d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+
+  // ─── STATE ───────────────────────────────────────────────
+  let selectedService = {name:'Limpieza dental',min:'45 min',price:'Desde 45€'};
+  let selectedDate = '', selectedSlot = '';
+  let kpiReservas = 41, kpiNuevos = 6, kpiRecordatorios = 14;
+
+  // ─── SLOT MAP ────────────────────────────────────────────
+  const slotMap = {
+    0:['09:00','10:00','11:30','16:00','17:00','18:30'],
+    1:['09:30','10:30','12:00','16:30','17:30','19:00'],
+    2:['09:00','10:00','11:00','12:30','16:00','18:00'],
+    3:['09:15','10:15','11:45','16:15','17:15','18:15'],
+    4:['09:00','10:30','11:30','16:00','17:00','18:00'],
+    5:['10:00','11:00','12:00','16:30','17:30','18:30'],
+    6:['09:00','10:00','11:00','15:30','16:30','17:30']
+  };
+
+  // ─── RENDER DAYS ─────────────────────────────────────────
+  const renderDays = () => {
+    $('days').innerHTML='';
+    for(let i=0;i<7;i++){
+      const d=new Date(); d.setDate(d.getDate()+i+1);
+      const btn=document.createElement('button');
+      btn.className='day'+(i===0?' active':'');
+      btn.innerHTML=`<small>${d.toLocaleDateString('es-ES',{weekday:'short'})}</small><strong>${d.getDate()}</strong>`;
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.day').forEach(x=>x.classList.remove('active'));
+        btn.classList.add('active');
+        selectedDate=esDate(d);
+        renderSlots(i);
+        updateSummary();
+      });
+      $('days').appendChild(btn);
+      if(i===0) selectedDate=esDate(d);
+    }
+  };
+
+  // ─── RENDER SLOTS ────────────────────────────────────────
+  const renderSlots = (di=0) => {
+    $('slots').innerHTML=''; selectedSlot='';
+    slotMap[di].forEach((time,idx)=>{
+      const b=document.createElement('button');
+      const dis=idx===2;
+      b.className='slot'+(dis?' disabled':'');
+      b.textContent=time;
+      if(!dis) b.addEventListener('click',()=>{
+        document.querySelectorAll('.slot').forEach(x=>x.classList.remove('selected'));
+        b.classList.add('selected');
+        selectedSlot=time;
+        updateSummary();
+      });
+      $('slots').appendChild(b);
+    });
+  };
+
+  // ─── PROGRESS ────────────────────────────────────────────
+  const updateProgress = () => {
+    let p=20;
+    if(selectedDate) p=40;
+    if(selectedDate&&selectedSlot) p=60;
+    if(selectedDate&&selectedSlot&&$('name').value) p=80;
+    if(selectedDate&&selectedSlot&&$('name').value&&$('phone').value) p=100;
+    $('progressBar').style.width=p+'%';
+  };
+
+  // ─── SUMMARY ─────────────────────────────────────────────
+  const updateSummary = () => {
+    $('sumService').textContent=selectedService.name;
+    $('sumMeta').textContent=`${selectedService.min} · ${selectedService.price}`;
+    $('sumDate').textContent=selectedDate&&selectedSlot?`${selectedDate} · ${selectedSlot}`:'Selecciona día y hora';
+    $('sumPatient').textContent=$('name').value||$('phone').value?`${$('name').value||'Nombre pendiente'} · ${$('phone').value||'Tel. pendiente'}`:'Pendiente de completar';
+    $('sumAuto').textContent=`Confirmación por ${$('channel').value}, recordatorio 24h antes y alta en CRM.`;
+    updateProgress();
+  };
+
+  // ─── SERVICES ────────────────────────────────────────────
+  document.querySelectorAll('#services .service').forEach(card=>{
+    card.addEventListener('click',()=>{
+      document.querySelectorAll('#services .service').forEach(c=>c.classList.remove('active'));
+      card.classList.add('active');
+      selectedService={name:card.dataset.service,min:card.dataset.min,price:card.dataset.price};
+      updateSummary();
+    });
+  });
+
+  // ─── FORM INPUTS ─────────────────────────────────────────
+  ['doctor','channel','name','phone','email','insurance','notes'].forEach(id=>{
+    const el=$(id);
+    if(el){ el.addEventListener('input',updateSummary); el.addEventListener('change',updateSummary); }
+  });
+
+  // ─── SWITCHES ────────────────────────────────────────────
+  ['sw1','sw2','sw3','sw4'].forEach(id=>{
+    $(id).addEventListener('click',function(){
+      this.classList.toggle('on');
+      const label=this.closest('.auto-row').querySelector('span').textContent;
+      showToast(this.classList.contains('on')?`✅ "${label}" activado.`:`⏸️ "${label}" pausado.`);
+    });
+  });
+
+  // ─── LOAD DEMO ───────────────────────────────────────────
+  $('loadDemo').addEventListener('click',()=>{
+    $('name').value='Claudia Fernández';
+    $('phone').value='622 456 781';
+    $('email').value='claudia@demo.com';
+    $('insurance').value='Sanitas';
+    $('doctor').value='Dra. Marta López';
+    $('channel').value='WhatsApp';
+    $('notes').value='Quiere revisar sensibilidad y pedir presupuesto de ortodoncia.';
+    document.querySelectorAll('#services .service')[2].click();
+    document.querySelector('.day').click();
+    const valid=[...document.querySelectorAll('.slot:not(.disabled)')][3];
+    if(valid) valid.click();
+    updateSummary();
+    $('demoSection').scrollIntoView({behavior:'smooth',block:'start'});
+    showToast('📋 Caso demo cargado. Pulsa "Confirmar reserva" para ver el flujo completo.');
+  });
+
+  // ─── BOOK NOW ────────────────────────────────────────────
+  $('bookNow').addEventListener('click',()=>{
+    if(!$('name').value||!$('phone').value||!selectedDate||!selectedSlot){
+      showToast('⚠️ Completa nombre, teléfono, día y hora para simular la reserva.');
+      return;
+    }
+    runConfirmationFlow();
+  });
+
+  // ─── CONFIRMATION FLOW ───────────────────────────────────
+  const runConfirmationFlow = () => {
+    $('stepSlotText').textContent=`${selectedDate} · ${selectedSlot}`;
+    $('stepChannelText').textContent=$('channel').value;
+    ['step1','step2','step3','step4','step5'].forEach(id=>{
+      $(id).classList.remove('done','active');
+    });
+    $('confirmResult').style.display='none';
+    openModal('modalConfirm');
+    const steps=['step1','step2','step3','step4','step5'];
+    let i=0;
+    const next=()=>{
+      if(i>0) $(steps[i-1]).classList.replace('active','done');
+      if(i<steps.length){
+        $(steps[i]).classList.add('active');
+        i++;
+        setTimeout(next, i===3?900:650);
+      } else {
+        setTimeout(()=>{
+          $('confirmResult').style.display='block';
+          addToTimeline();
+          bumpKPIs();
+        },400);
       }
     };
-    const renderSlots = (di=0) => {
-      slotsWrap.innerHTML=''; selectedSlot='';
-      slotMap[di].forEach((time,idx)=>{
-        const b=document.createElement('button');
-        const dis=idx===2; b.className='slot'+(dis?' disabled':''); b.textContent=time;
-        if(!dis){ b.addEventListener('click',()=>{ document.querySelectorAll('.slot').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); selectedSlot=time; updateSummary(); }); }
-        slotsWrap.appendChild(b);
+    setTimeout(next,300);
+  };
+
+  // ─── ADD TO TIMELINE ─────────────────────────────────────
+  const addToTimeline = () => {
+    const row=document.createElement('div');
+    row.className='event';
+    const evId='ev_'+Date.now();
+    row.id=evId;
+    const nm=$('name').value;
+    row.innerHTML=`
+      <div>
+        <strong>${selectedSlot} · ${nm}</strong><br>
+        ${selectedService.name} · ${$('doctor').value}<br>
+        <span class="status ok">Nueva reserva</span>
+      </div>
+      <div class="event-actions">
+        <button class="btn btn-sm btn-white" onclick="openReschedule('${evId}','${nm}')">Reagendar</button>
+        <button class="btn btn-sm btn-danger" onclick="cancelEvent('${evId}')">Cancelar</button>
+      </div>`;
+    $('timeline').prepend(row);
+  };
+
+  // ─── BUMP KPIs ───────────────────────────────────────────
+  const bumpKPIs = () => {
+    kpiReservas++; kpiNuevos++; kpiRecordatorios++;
+    [['kpiReservas',kpiReservas],['kpiNuevos',kpiNuevos],['kpiRecordatorios',kpiRecordatorios]].forEach(([id,val])=>{
+      const el=$(id);
+      el.textContent=val;
+      el.closest('.kpi').classList.add('bump');
+      setTimeout(()=>el.closest('.kpi').classList.remove('bump'),600);
+    });
+  };
+
+  // ─── WA MODAL ────────────────────────────────────────────
+  const openWAModal = () => {
+    closeModal('modalConfirm');
+    $('waMsgs').innerHTML='';
+    const msgs=[
+      {sent:false, text:`✅ *Reserva confirmada*\n\nHola ${$('name').value||'paciente'} 👋\n\nTu cita en *Clínica Dental Demo* ha sido confirmada:\n\n📅 *Fecha:* ${selectedDate}\n⏰ *Hora:* ${selectedSlot}\n🦷 *Servicio:* ${selectedService.name}\n👩‍⚕️ *Profesional:* ${$('doctor').value}\n\nTe recordaremos 24h antes. ¡Hasta pronto!`, delay:400},
+      {sent:true, text:'Perfecto, muchas gracias 😊', delay:1600},
+      {sent:false, text:'¡De nada! Si necesitas cambiar la cita, escríbenos aquí mismo. 🦷', delay:2600},
+    ];
+    openModal('modalWA');
+    msgs.forEach(({sent,text,delay})=>{
+      setTimeout(()=>{
+        const div=document.createElement('div');
+        div.className='wa-msg'+(sent?' sent':'');
+        div.innerHTML=text.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<strong>$1</strong>')+`<small>${new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})}</small>`;
+        $('waMsgs').appendChild(div);
+        $('waMsgs').scrollTop=$('waMsgs').scrollHeight;
+      },delay);
+    });
+  };
+
+  // ─── CANCEL EVENT ────────────────────────────────────────
+  window.cancelEvent = id => {
+    const ev=$(id);
+    if(!ev) return;
+    const name=ev.querySelector('strong').textContent;
+    if(confirm(`¿Cancelar la cita de ${name}?`)){
+      ev.querySelectorAll('.status').forEach(s=>{
+        s.className='status cancelled';
+        s.textContent='Cancelada';
       });
-    };
-    const updateProgress = () => {
-      let p=28; if(selectedDate) p=48; if(selectedDate&&selectedSlot) p=70;
-      if(selectedDate&&selectedSlot&&nameInput.value&&phone.value) p=100;
-      $('progressBar').style.width=p+'%';
-    };
-    const updateSummary = () => {
-      $('sumService').textContent=selectedService.name;
-      $('sumMeta').textContent=`${selectedService.min} · ${selectedService.price}`;
-      $('sumDate').textContent=selectedDate&&selectedSlot?`${selectedDate} · ${selectedSlot}`:'Selecciona un día y una hora';
-      $('sumPatient').textContent=nameInput.value||phone.value?`${nameInput.value||'Nombre pendiente'} · ${phone.value||'Tel. pendiente'}`:'Pendiente de completar';
-      $('sumAuto').textContent=`Confirmación por ${channel.value}, recordatorio 24h antes y alta en CRM.`;
-      updateProgress();
-    };
-    services.forEach(card=>{ card.addEventListener('click',()=>{ services.forEach(c=>c.classList.remove('active')); card.classList.add('active'); selectedService={name:card.dataset.service,min:card.dataset.min,price:card.dataset.price}; updateSummary(); }); });
-    chips.forEach(chip=>{ chip.addEventListener('click',()=>{ chips.forEach(c=>c.classList.remove('active')); chip.classList.add('active'); const type=chip.dataset.type; const u=document.createElement('div'); u.className='bubble user'; u.textContent=`Quiero reservar: ${type}`; $('chatBox').appendChild(u); const b=document.createElement('div'); b.className='bubble bot'; b.textContent=`Perfecto. Ya he preparado la reserva para ${type}. Solo tienes que elegir día, hora y completar tus datos.`; $('chatBox').appendChild(b); const target=services.find(s=>s.dataset.service===type); if(target) target.click(); }); });
-    [doctor,channel,nameInput,phone,email,insurance,notes].forEach(el=>{ el.addEventListener('input',updateSummary); el.addEventListener('change',updateSummary); });
-    $('loadDemo').addEventListener('click',()=>{ nameInput.value='Claudia Fernández'; phone.value='622 456 781'; email.value='claudia@demo.com'; insurance.value='Sanitas'; doctor.value='Dra. Marta López'; channel.value='WhatsApp'; notes.value='Quiere revisar sensibilidad y presupuesto de tratamiento.'; services[2].click(); document.querySelector('.day').click(); const valid=[...document.querySelectorAll('.slot:not(.disabled)')][3]; valid.click(); updateSummary(); $('demoSection').scrollIntoView({behavior:'smooth',block:'start'}); showToast('Caso demo cargado para la presentación.'); });
-    $('bookNow').addEventListener('click',()=>{ if(!nameInput.value||!phone.value||!selectedDate||!selectedSlot){ showToast('Completa nombre, teléfono, día y hora para simular la reserva.'); return; } const row=document.createElement('div'); row.className='event'; row.innerHTML=`<div><strong>${selectedSlot} · ${nameInput.value}</strong><br>${selectedService.name} · ${doctor.value}<br><span class="status ok">Nueva reserva</span></div><div style="color:var(--muted);font-size:.9rem;">${channel.value}</div>`; timeline.prepend(row); showToast(`Reserva simulada. Se enviaría confirmación por ${channel.value} y recordatorio automático.`); });
-    $('heroDemo').addEventListener('click',()=>{ $('demoSection').scrollIntoView({behavior:'smooth',block:'start'}); });
-    $('heroFunciones').addEventListener('click',()=>{ showToast('Sistema de reserva online, confirmaciones automáticas y agenda centralizada.'); });
-    renderDays(); renderSlots(); updateSummary();
+      ev.querySelector('.event-actions').innerHTML='<span style="font-size:.85rem;color:var(--muted);">Cita cancelada</span>';
+      showToast(`❌ Cita de ${name} cancelada. Se enviará aviso automático al paciente.`);
+    }
+  };
+
+  // ─── RESCHEDULE ──────────────────────────────────────────
+  let currentRescheduleId='';
+  window.openReschedule = (evId, patientName) => {
+    currentRescheduleId=evId;
+    $('reschedulePatient').textContent=patientName;
+    // render days
+    $('rDays').innerHTML='';
+    for(let i=0;i<8;i++){
+      const d=new Date(); d.setDate(d.getDate()+i+1);
+      const btn=document.createElement('div');
+      btn.className='r-day'+(i===0?' active':'');
+      btn.innerHTML=`<small>${d.toLocaleDateString('es-ES',{weekday:'short'})}</small><strong>${d.getDate()}</strong>`;
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.r-day').forEach(x=>x.classList.remove('active'));
+        btn.classList.add('active');
+      });
+      $('rDays').appendChild(btn);
+    }
+    // render slots
+    $('rSlots').innerHTML='';
+    ['09:00','10:30','12:00','16:00','17:30','18:00'].forEach((t,i)=>{
+      const b=document.createElement('div');
+      b.className='r-slot'+(i===0?' active':'');
+      b.textContent=t;
+      b.addEventListener('click',()=>{
+        document.querySelectorAll('.r-slot').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+      });
+      $('rSlots').appendChild(b);
+    });
+    openModal('modalReschedule');
+  };
+
+  $('confirmReschedule').addEventListener('click',()=>{
+    const newDay=$('rDays').querySelector('.active strong').textContent;
+    const newSlot=$('rSlots').querySelector('.active').textContent;
+    const ev=$(currentRescheduleId);
+    if(ev){
+      const strong=ev.querySelector('strong');
+      const parts=strong.textContent.split('·');
+      strong.textContent=`${newSlot} · ${parts.slice(1).join('·')}`;
+      ev.querySelectorAll('.status').forEach(s=>{s.className='status ok';s.textContent='Reagendada';});
+    }
+    closeModal('modalReschedule');
+    showToast(`📅 Cita reagendada al día ${newDay} a las ${newSlot}. Se ha notificado al paciente.`);
+  });
+
+  // ─── CHAT VERA ───────────────────────────────────────────
+  const chatBox=$('chatBox');
+  let chatStep='init';
+  let chatService='';
+
+  const addMsg=(text,type='bot',delay=0)=>{
+    setTimeout(()=>{
+      if(type==='bot'){
+        const t=document.createElement('div');
+        t.className='typing';
+        t.innerHTML='<span></span><span></span><span></span>';
+        chatBox.appendChild(t);
+        chatBox.scrollTop=chatBox.scrollHeight;
+        setTimeout(()=>{
+          t.remove();
+          const b=document.createElement('div');
+          b.className='bubble bot';
+          b.innerHTML=text;
+          chatBox.appendChild(b);
+          chatBox.scrollTop=chatBox.scrollHeight;
+        },700);
+      } else {
+        const b=document.createElement('div');
+        b.className='bubble user';
+        b.textContent=text;
+        chatBox.appendChild(b);
+        chatBox.scrollTop=chatBox.scrollHeight;
+      }
+    },delay);
+  };
+
+  const veraResponses={
+    'precio':'💬 Los precios dependen del tratamiento. Una limpieza desde 45€, revisión desde 30€, blanqueamiento desde 180€. ¿Quieres reservar?',
+    'horario':'🕐 Atendemos de lunes a viernes de 9:00 a 20:00, y sábados de 9:00 a 14:00. ¿Te apunto para algún día concreto?',
+    'default':'Entendido 😊 Puedo ayudarte a reservar una cita. ¿Qué tratamiento necesitas?'
+  };
+
+  document.querySelectorAll('#chatChips .chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      document.querySelectorAll('#chatChips .chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      const type=chip.dataset.type;
+      const q=chip.dataset.q;
+      if(type){
+        addMsg(`Quiero reservar: ${type}`,'user');
+        chatService=type;
+        addMsg(`Perfecto 😊 Para <strong>${type}</strong> tenemos disponibilidad esta semana. ¿Me dices tu nombre para buscar hueco?`,'bot',200);
+        $('chatInputRow').style.display='flex';
+        $('chatChips').style.display='none';
+        chatStep='askName';
+        // sync service selector
+        document.querySelectorAll('#services .service').forEach(s=>{
+          if(s.dataset.service===type) s.click();
+        });
+      } else if(q){
+        addMsg(chip.textContent,'user');
+        addMsg(veraResponses[q]||veraResponses['default'],'bot',200);
+      }
+    });
+  });
+
+  $('chatSendBtn').addEventListener('click',sendChatMsg);
+  $('chatUserInput').addEventListener('keydown',e=>{ if(e.key==='Enter') sendChatMsg(); });
+
+  function sendChatMsg(){
+    const val=$('chatUserInput').value.trim();
+    if(!val) return;
+    addMsg(val,'user');
+    $('chatUserInput').value='';
+    if(chatStep==='askName'){
+      addMsg(`Perfecto, <strong>${val}</strong>. ¿Y tu teléfono para enviarte la confirmación por WhatsApp?`,'bot',300);
+      $('name').value=val; updateSummary();
+      chatStep='askPhone';
+    } else if(chatStep==='askPhone'){
+      addMsg(`Anotado 📱 He preparado tu reserva de <strong>${chatService}</strong>. Solo tienes que elegir día y hora en el formulario de abajo. ¡Te confirmaremos al instante! ✅`,'bot',300);
+      $('phone').value=val; updateSummary();
+      chatStep='done';
+      setTimeout(()=>{ $('demoSection').scrollIntoView({behavior:'smooth',block:'start'}); },1200);
+    } else {
+      const lower=val.toLowerCase();
+      if(lower.includes('precio')||lower.includes('cuesta')) addMsg(veraResponses['precio'],'bot',300);
+      else if(lower.includes('horario')||lower.includes('hora')) addMsg(veraResponses['horario'],'bot',300);
+      else addMsg(veraResponses['default'],'bot',300);
+    }
+  }
+
+  // ─── HERO BUTTONS ────────────────────────────────────────
+  $('heroDemo').addEventListener('click',()=>{ $('demoSection').scrollIntoView({behavior:'smooth',block:'start'}); });
+  $('heroChatBtn').addEventListener('click',()=>{ $('chatCard').scrollIntoView({behavior:'smooth',block:'start'}); });
+
+  // ─── INIT ────────────────────────────────────────────────
+  renderDays();
+  renderSlots();
+  updateSummary();
+
+  // close modals on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(ov=>{
+    ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('open'); });
+  });
   </script>
 </body>
 </html>
